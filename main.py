@@ -4,6 +4,7 @@ import numpy
 import sklearn
 import sklearn.model_selection
 import sklearn.neighbors
+import sklearn.svm
 
 
 def main():
@@ -28,9 +29,17 @@ def main():
                                                                                     test_size=0.20)
     # Use KNN classifier
     knn1 = sklearn.neighbors.KNeighborsClassifier()
-    model1 = knn1.fit(x_train1, y_train1)
+    knn1.fit(x_train1, y_train1)
     print("Estimated accuracy for dataset 1 label prediction via KNN, 1:4 sample:")
-    print(model1.score(x_test1, y_test1))
+    print(knn1.score(x_test1, y_test1))
+
+    # Use SVM
+    svm1 = sklearn.svm.SVC()
+    svm1.fit(x_train1, y_train1)
+    print("Estimated accuracy for dataset 1 label prediction via SVM, 1:4 sample:")
+    print(svm1.score(x_test1, y_test1))
+
+    print("After repeated testing, the chosen algorithm for this data set is KNN. Please see report for more details.")
 
     # Data 2 Learning
     txt_file22 = r"TrainData2.txt"
@@ -52,9 +61,17 @@ def main():
                                                                                     test_size=0.20)
     # Use KNN classifier
     knn2 = sklearn.neighbors.KNeighborsClassifier()
-    model2 = knn2.fit(x_train2, y_train2)
+    knn2.fit(x_train2, y_train2)
     print("Estimated accuracy for dataset 2 label prediction via KNN, 1:4 sample:")
-    print(model2.score(x_test2, y_test2))
+    print(knn2.score(x_test2, y_test2))
+
+    # Use SVM
+    svm2 = sklearn.svm.SVC()
+    svm2.fit(x_train2, y_train2)
+    print("Estimated accuracy for dataset 2 label prediction via SVM, 1:4 sample:")
+    print(svm2.score(x_test2, y_test2))
+
+    print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
 
     # Data 3 Learning
     txt_file23 = r"TrainData3.txt"
@@ -76,9 +93,17 @@ def main():
                                                                                     test_size=0.20)
     # Use KNN classifier
     knn3 = sklearn.neighbors.KNeighborsClassifier()
-    model3 = knn3.fit(x_train3, y_train3)
+    knn3.fit(x_train3, y_train3)
     print("Estimated accuracy for dataset 3 label prediction via KNN, 1:4 sample:")
-    print(model3.score(x_test3, y_test3))
+    print(knn3.score(x_test3, y_test3))
+
+    # Use SVM
+    svm3 = sklearn.svm.SVC()
+    svm3.fit(x_train3, y_train3)
+    print("Estimated accuracy for dataset 3 label prediction via SVM, 1:4 sample:")
+    print(svm3.score(x_test3, y_test3))
+
+    print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
 
     # Data 4 Learning
     txt_file24 = r"TrainData4.txt"
@@ -100,9 +125,17 @@ def main():
                                                                                     test_size=0.20)
     # Use KNN classifier
     knn4 = sklearn.neighbors.KNeighborsClassifier()
-    model4 = knn4.fit(x_train4, y_train4)
+    knn4.fit(x_train4, y_train4)
     print("Estimated accuracy for dataset 4 label prediction via KNN, 1:4 sample:")
-    print(model4.score(x_test4, y_test4))
+    print(knn4.score(x_test4, y_test4))
+
+    # Use SVM
+    svm4 = sklearn.svm.SVC()
+    svm4.fit(x_train4, y_train4)
+    print("Estimated accuracy for dataset 4 label prediction via SVM, 1:4 sample:")
+    print(svm4.score(x_test4, y_test4))
+
+    print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
 
     # Data 5 Learning
     txt_file25 = r"TrainData5.txt"
@@ -124,33 +157,17 @@ def main():
                                                                                     test_size=0.20)
     # Use KNN classifier
     knn5 = sklearn.neighbors.KNeighborsClassifier()
-    model5 = knn5.fit(x_train5, y_train5)
+    knn5.fit(x_train5, y_train5)
     print("Estimated accuracy for dataset 5 label prediction via KNN, 1:4 sample:")
-    print(model5.score(x_test5, y_test5))
+    print(knn5.score(x_test5, y_test5))
 
-    # Data 6 Learning
-    txt_file26 = r"TrainData6.txt"
-    csv_file26 = r"TrainData6_noNaN.csv"
-    in_txt26 = csv.reader(open(txt_file26, "rt"), delimiter='\t')
-    out_csv26 = csv.writer(open(csv_file26, 'wt'))
-    out_csv26.writerows(in_txt26)
-    with open("TrainData6_noNaN.csv", "rt") as fin:
-        with open("TrainData6.csv", "wt") as fout:
-            for line in fin:
-                fout.write(line.replace('1.00000000000000e+99', 'NaN'))
-    # Save imputed data to file and keep in dataframe for computation
-    datasetlearn6 = pandas.read_csv('TrainData6.csv', names=None, header=None)
-    datasetlearn6.fillna(datasetlearn6.mean(), inplace=True)
-    datasetlearn6.to_csv('TrainData6.csv', index=False, header=None)
-    datasetlabels6 = pandas.read_csv('TrainLabel6.txt', names=None, header=None)
-    datasetlabels6 = numpy.ravel(datasetlabels6)
-    x_train6, x_test6, y_train6, y_test6 = sklearn.model_selection.train_test_split(datasetlearn6, datasetlabels6,
-                                                                                    test_size=0.20)
-    # Use KNN classifier
-    knn6 = sklearn.neighbors.KNeighborsClassifier()
-    model6 = knn1.fit(x_train6, y_train6)
-    print("Estimated accuracy for dataset 6 label prediction via KNN, 1:4 sample:")
-    print(model6.score(x_test6, y_test6))
+    # Use SVM
+    svm5 = sklearn.svm.SVC()
+    svm5.fit(x_train5, y_train5)
+    print("Estimated accuracy for dataset 5 label prediction via SVM, 1:4 sample:")
+    print(svm5.score(x_test5, y_test5))
+
+    print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
 
     # Testing Data
     # Test set 1
@@ -257,27 +274,6 @@ def main():
     results5 = open('TestLabel5.txt', 'w')
     for eaLine in predictions5:
         results5.write("%s\n" % eaLine)
-
-    # Test set 6
-    txt_file36 = r"TestData6.txt"
-    csv_file36 = r"TestData6_noNaN.csv"
-    in_txt36 = csv.reader(open(txt_file36, "rt"), delimiter='\t')
-    out_csv36 = csv.writer(open(csv_file36, 'wt'))
-    out_csv36.writerows(in_txt36)
-    with open("TestData6_noNaN.csv", "rt") as fin:
-        with open("TestData6.csv", "wt") as fout:
-            for line in fin:
-                fout.write(line.replace('1.00000000000000e+99', 'NaN'))
-    # Save imputed data to file and keep in dataframe for computation
-    datasettest6 = pandas.read_csv('TestData6.csv', names=None, header=None)
-    datasettest6.fillna(datasettest6.mean(), inplace=True)
-    datasettest6.to_csv('TestData6.csv', index=None, header=None)
-    # Re-fit with entire learning data set
-    knn6.fit(datasetlearn6, datasetlabels6)
-    predictions6 = knn6.predict(datasettest6)
-    results6 = open('TestLabel6.txt', 'w')
-    for eaLine in predictions6:
-        results6.write("%s\n" % eaLine)
 
 
 main()
