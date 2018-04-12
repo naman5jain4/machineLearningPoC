@@ -1,0 +1,58 @@
+Report for missing data:
+After researching about which method is the best for missing data in the gene. I found four popular methods such as Mean Value, Mode Value, K Nearest Neighbor, and Singular Value Decomposition. I tried to implement those methods with Python.
+Procedure:
+I used the given data and wrote python script “format.py” to replace the missing value with “NaN” for easy use. The script will output files named: data-1.txt, data-2.txt, data-3.txt which has "NaN" represents missing values.
+
+Mean value method:
+I wrote a python script “mean.py” to fill those data. What the “mean.py” script does is first it will append the data in "data-(1,2,3).txt" to the 2D array. Then it loops through the 2D array(table) if it sees any missing value in a particular column, it will call the "ave(table, i)" method which parameter is the table and i-th column. What ave() will set all the "NaN" value to be zero and sum all the value in an i-th column and divided the sum by the number of rows. Lastly, it will output the file with completed data called "mean-data-(1,2,3)" which is a result of a Mean Value Method.
+
+Mode value method:
+I wrote a python script "mode.py" to fill "NaN" data. First, the script will read the file "data-(1,2,3).txt" and append line by line to a 2D array. The "mode(table, i)" method taking two parameter which is a 2D array and i-th column, then it will fill out all the missing value with the number appears the most in the i-th column. After writing the "mode(table, i) method, I started to loop through the table. Anytime, it sees the "NaN" it will call the "mode(table, i)" method. After filling all the missing values, it will write to the output file with completed data "mode-data-(1,2,3)" which is the result of the Mode Value Method.
+
+KNN method:
+KNN impute uses pairwise information between the target gene with missing values and the K nearest reference genes to impute the missing value. 
+I wrote script "knn.py" to use KNN method and output the result file. First, the script will read data in file "data-(1,2,3).txt" and append to the 2D array. I tried to implement KNN for imputation, but I could not do it. So I used the library package call "fancyimpute" to use KNN imputation to fill my missing data("NaN"). Then I assigned it to a 2D array named "filled". Then, I output it to a "knn-data-(1,2,3).txt" fill which are the result of knn method.
+
+SVD method:
+After doing research, I think SVD will do the best for my imputing data. Repeat the same procedure as above, and this script will generate my final answers which are "svd-data-1.txt, svd-data-2.txt, svd-data-3.txt."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

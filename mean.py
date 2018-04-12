@@ -1,4 +1,3 @@
-import sys
 f1 = open("data-1.txt", "r+")
 f2 = open("data-2.txt", "r+")
 f3 = open("data-3.txt", "r+")
