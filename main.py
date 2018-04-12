@@ -5,7 +5,7 @@ import sklearn
 import sklearn.model_selection
 import sklearn.neighbors
 import sklearn.svm
-import fileinput
+import sklearn.ensemble
 
 
 def main():
@@ -34,6 +34,11 @@ def main():
     svm1.fit(x_train1, y_train1)
     print("Estimated accuracy for dataset 1 label prediction via SVM, 1:4 sample:")
     print(svm1.score(x_test1, y_test1))
+    # Use Random Forest
+    rf1 = sklearn.ensemble.RandomForestClassifier()
+    rf1.fit(X=x_train1, y=y_train1)
+    print("Estimated accuracy for dataset 1 label prediction via Random Forest, 1:4 sample:")
+    print(rf1.score(x_test1,y_test1))
 
     print("After repeated testing, the chosen algorithm for this data set is KNN. Please see report for more details.")
     print("")
@@ -62,6 +67,11 @@ def main():
     svm2.fit(x_train2, y_train2)
     print("Estimated accuracy for dataset 2 label prediction via SVM, 1:4 sample:")
     print(svm2.score(x_test2, y_test2))
+    # Use Random Forest
+    rf2 = sklearn.ensemble.RandomForestClassifier()
+    rf2.fit(X=x_train2, y=y_train2)
+    print("Estimated accuracy for dataset 2 label prediction via Random Forest, 1:4 sample:")
+    print(rf2.score(x_test2, y_test2))
 
     print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
     print("")
@@ -85,12 +95,16 @@ def main():
     knn3.fit(x_train3, y_train3)
     print("Estimated accuracy for dataset 3 label prediction via KNN, 1:4 sample:")
     print(knn3.score(x_test3, y_test3))
-
     # Use SVM
     svm3 = sklearn.svm.SVC()
     svm3.fit(x_train3, y_train3)
     print("Estimated accuracy for dataset 3 label prediction via SVM, 1:4 sample:")
     print(svm3.score(x_test3, y_test3))
+    # Use Random Forest
+    rf3 = sklearn.ensemble.RandomForestClassifier()
+    rf3.fit(X=x_train3, y=y_train3)
+    print("Estimated accuracy for dataset 3 label prediction via Random Forest, 1:4 sample:")
+    print(rf3.score(x_test3, y_test3))
 
     print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
     print("")
@@ -101,8 +115,21 @@ def main():
     filedata = filedata.replace('1.00000000000000e+99', 'NaN')
     with open('TrainData4_NaN.txt', 'w') as file:
         file.write(filedata)
+    file = open("TrainData4_NaN.txt", "r+")
+    f = open("TrainData4_NaN_cleaned.txt", "w+")
+    table = []
+    for line in file:
+        line = line.rstrip('\n').split()
+        table.append(line)
+    for row in table:
+        for col in row:
+            col = col.split('e')
+            sum = float(col[0]) * (10 ** (int(col[1])))
+            f.write('%s\t' % sum),
+        f.writelines('\n')
+    f.close()
     # Save imputed data to file and keep in dataframe for computation
-    datasetlearn4 = pandas.read_csv('TrainData4_NaN.txt', names=None, header=None, delimiter='\t')
+    datasetlearn4 = pandas.read_csv('TrainData4_NaN_cleaned.txt', names=None, header=None, delimiter='\t')
     datasetlearn4.fillna(datasetlearn4.mean(), inplace=True)
     datasetlearn4.to_csv('TrainData4.csv', index=False, header=None)
     datasetlabels4 = pandas.read_csv('TrainLabel4.txt', names=None, header=None)
@@ -119,6 +146,11 @@ def main():
     svm4.fit(x_train4, y_train4)
     print("Estimated accuracy for dataset 4 label prediction via SVM, 1:4 sample:")
     print(svm4.score(x_test4, y_test4))
+    # Use Random Forest
+    rf4 = sklearn.ensemble.RandomForestClassifier()
+    rf4.fit(X=x_train4, y=y_train4)
+    print("Estimated accuracy for dataset 4 label prediction via Random Forest, 1:4 sample:")
+    print(rf4.score(x_test4, y_test4))
 
     print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
     print("")
@@ -147,6 +179,11 @@ def main():
     svm5.fit(x_train5, y_train5)
     print("Estimated accuracy for dataset 5 label prediction via SVM, 1:4 sample:")
     print(svm5.score(x_test5, y_test5))
+    # Use Random Forest
+    rf5 = sklearn.ensemble.RandomForestClassifier()
+    rf5.fit(X=x_train5, y=y_train5)
+    print("Estimated accuracy for dataset 5 label prediction via Random Forest, 1:4 sample:")
+    print(rf5.score(x_test5, y_test5))
 
     print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
     print("")
