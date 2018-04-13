@@ -6,6 +6,7 @@ import sklearn.model_selection
 import sklearn.neighbors
 import sklearn.svm
 import sklearn.ensemble
+import sklearn.tree
 
 
 def main():
@@ -17,7 +18,7 @@ def main():
     with open('TrainData1_NaN.txt', 'w') as file:
         file.write(filedata)
     # Save imputed data to file and keep in dataframe for computation
-    datasetlearn1 = pandas.read_csv('TrainData1_NaN.txt', header=None, index_col=None, delimiter='\t')
+    datasetlearn1 = pandas.read_csv('TrainData1_NaN.txt', header=None, index_col=None, delim_whitespace=True)
     datasetlearn1.fillna(datasetlearn1.mean(), inplace=True)
     datasetlearn1.to_csv('TrainData1.csv', index=False, header=None)
     datasetlabels1 = pandas.read_csv('TrainLabel1.txt', header=None, index_col=None)
@@ -38,7 +39,12 @@ def main():
     rf1 = sklearn.ensemble.RandomForestClassifier()
     rf1.fit(X=x_train1, y=y_train1)
     print("Estimated accuracy for dataset 1 label prediction via Random Forest, 1:4 sample:")
-    print(rf1.score(x_test1,y_test1))
+    print(rf1.score(x_test1, y_test1))
+    # Use Decision Tree
+    dt1 = sklearn.tree.DecisionTreeClassifier()
+    dt1.fit(x_train1, y_train1)
+    print("Estimated accuracy for dataset 1 label prediction via DecisionTree, 1:4 sample:")
+    print(dt1.score(x_test1, y_test1))
 
     print("After repeated testing, the chosen algorithm for this data set is KNN. Please see report for more details.")
     print("")
@@ -50,7 +56,7 @@ def main():
     with open('TrainData2_NaN.txt', 'w') as file:
         file.write(filedata)
     # Save imputed data to file and keep in dataframe for computation
-    datasetlearn2 = pandas.read_csv('TrainData2_NaN.txt', names=None, header=None, delimiter='\t')
+    datasetlearn2 = pandas.read_csv('TrainData2_NaN.txt', names=None, header=None, delim_whitespace=True)
     datasetlearn2.fillna(datasetlearn2.mean(), inplace=True)
     datasetlearn2.to_csv('TrainData2.csv', index=False, header=None)
     datasetlabels2 = pandas.read_csv('TrainLabel2.txt', names=None, header=None)
@@ -72,8 +78,13 @@ def main():
     rf2.fit(X=x_train2, y=y_train2)
     print("Estimated accuracy for dataset 2 label prediction via Random Forest, 1:4 sample:")
     print(rf2.score(x_test2, y_test2))
+    # Use Decision Tree
+    dt2 = sklearn.tree.DecisionTreeClassifier()
+    dt2.fit(x_train2, y_train2)
+    print("Estimated accuracy for dataset 2 label prediction via DecisionTree, 1:4 sample:")
+    print(dt2.score(x_test2, y_test2))
 
-    print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
+    print("After repeated testing, the chosen algorithm for this data set is KNN. Please see report for more details.")
     print("")
 
     # Data 3 Learning
@@ -83,7 +94,7 @@ def main():
     with open('TrainData3_NaN.txt', 'w') as file:
         file.write(filedata)
     # Save imputed data to file and keep in dataframe for computation
-    datasetlearn3 = pandas.read_csv('TrainData3_NaN.txt', names=None, header=None, delimiter='\t')
+    datasetlearn3 = pandas.read_csv('TrainData3_NaN.txt', names=None, header=None, delim_whitespace=True)
     datasetlearn3.fillna(datasetlearn3.mean(), inplace=True)
     datasetlearn3.to_csv('TrainData3.csv', index=False, header=None)
     datasetlabels3 = pandas.read_csv('TrainLabel3.txt', names=None, header=None)
@@ -105,8 +116,13 @@ def main():
     rf3.fit(X=x_train3, y=y_train3)
     print("Estimated accuracy for dataset 3 label prediction via Random Forest, 1:4 sample:")
     print(rf3.score(x_test3, y_test3))
+    # Use Decision Tree
+    dt3 = sklearn.tree.DecisionTreeClassifier()
+    dt3.fit(x_train3, y_train3)
+    print("Estimated accuracy for dataset 3 label prediction via DecisionTree, 1:4 sample:")
+    print(dt3.score(x_test3, y_test3))
 
-    print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
+    print("After repeated testing, the chosen algorithm for this data set is SVM. Please see report for more details.")
     print("")
 
     # Data 4 Learning
@@ -115,21 +131,8 @@ def main():
     filedata = filedata.replace('1.00000000000000e+99', 'NaN')
     with open('TrainData4_NaN.txt', 'w') as file:
         file.write(filedata)
-    file = open("TrainData4_NaN.txt", "r+")
-    f = open("TrainData4_NaN_cleaned.txt", "w+")
-    table = []
-    for line in file:
-        line = line.rstrip('\n').split()
-        table.append(line)
-    for row in table:
-        for col in row:
-            col = col.split('e')
-            sum = float(col[0]) * (10 ** (int(col[1])))
-            f.write('%s\t' % sum),
-        f.writelines('\n')
-    f.close()
     # Save imputed data to file and keep in dataframe for computation
-    datasetlearn4 = pandas.read_csv('TrainData4_NaN_cleaned.txt', names=None, header=None, delimiter='\t')
+    datasetlearn4 = pandas.read_csv('TrainData4_NaN.txt', names=None, header=None, delim_whitespace=True)
     datasetlearn4.fillna(datasetlearn4.mean(), inplace=True)
     datasetlearn4.to_csv('TrainData4.csv', index=False, header=None)
     datasetlabels4 = pandas.read_csv('TrainLabel4.txt', names=None, header=None)
@@ -151,8 +154,14 @@ def main():
     rf4.fit(X=x_train4, y=y_train4)
     print("Estimated accuracy for dataset 4 label prediction via Random Forest, 1:4 sample:")
     print(rf4.score(x_test4, y_test4))
+    # Use Decision Tree
+    dt4 = sklearn.tree.DecisionTreeClassifier()
+    dt4.fit(x_train4, y_train4)
+    print("Estimated accuracy for dataset 4 label prediction via DecisionTree, 1:4 sample:")
+    print(dt4.score(x_test4, y_test4))
 
-    print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
+    print("After repeated testing, the chosen algorithm for this data set is Random Forest. Please see report for "
+          "more details.")
     print("")
 
     # Data 5 Learning
@@ -162,7 +171,7 @@ def main():
     with open('TrainData5_NaN.txt', 'w') as file:
         file.write(filedata)
     # Save imputed data to file and keep in dataframe for computation
-    datasetlearn5 = pandas.read_csv('TrainData5_NaN.txt', names=None, header=None, delimiter='\t')
+    datasetlearn5 = pandas.read_csv('TrainData5_NaN.txt', names=None, header=None, delim_whitespace=True)
     datasetlearn5.fillna(datasetlearn5.mean(), inplace=True)
     datasetlearn5.to_csv('TrainData5.csv', index=False, header=None)
     datasetlabels5 = pandas.read_csv('TrainLabel5.txt', names=None, header=None)
@@ -184,8 +193,14 @@ def main():
     rf5.fit(X=x_train5, y=y_train5)
     print("Estimated accuracy for dataset 5 label prediction via Random Forest, 1:4 sample:")
     print(rf5.score(x_test5, y_test5))
+    # Use Decision Tree
+    dt5 = sklearn.tree.DecisionTreeClassifier()
+    dt5.fit(x_train5, y_train5)
+    print("Estimated accuracy for dataset 5 label prediction via DecisionTree, 1:4 sample:")
+    print(dt5.score(x_test5, y_test5))
 
-    print("After repeated testing, the chosen algorithm for this data set is ---. Please see report for more details.")
+    print("After repeated testing, the chosen algorithm for this data set is Random Forest. Please see report for "
+          "more details.")
     print("")
 
     # Testing Data
@@ -196,7 +211,7 @@ def main():
     with open('TestData1_NaN.txt', 'w') as file:
         file.write(filedata)
     # Save imputed data to file and keep in dataframe for computation
-    datasettest1 = pandas.read_csv('TestData1_NaN.txt', names=None, header=None, delimiter='\t')
+    datasettest1 = pandas.read_csv('TestData1_NaN.txt', names=None, header=None, delim_whitespace=True)
     datasettest1.fillna(datasettest1.mean(), inplace=True)
     datasettest1.to_csv('TestData1.csv')
     # Re-fit with entire learning data set
@@ -213,7 +228,7 @@ def main():
     with open('TestData2_NaN.txt', 'w') as file:
         file.write(filedata)
     # Save imputed data to file and keep in dataframe for computation
-    datasettest2 = pandas.read_csv('TestData2_NaN.txt', names=None, header=None)
+    datasettest2 = pandas.read_csv('TestData2_NaN.txt', names=None, header=None, delim_whitespace=True)
     datasettest2.fillna(datasettest2.mean(), inplace=True)
     datasettest2.to_csv('TestData2.csv', index=None, header=None)
     # Re-fit with entire learning data set
@@ -234,8 +249,8 @@ def main():
     datasettest3.fillna(datasettest3.mean(), inplace=True)
     datasettest3.to_csv('TestData3.csv', index=None, header=None)
     # Re-fit with entire learning data set
-    knn3.fit(datasetlearn3, datasetlabels3)
-    predictions3 = knn3.predict(datasettest3)
+    svm3.fit(datasetlearn3, datasetlabels3)
+    predictions3 = svm3.predict(datasettest3)
     results3 = open('TestLabel3.txt', 'w')
     for eaLine in predictions3:
         results3.write("%s\n" % eaLine)
@@ -251,12 +266,12 @@ def main():
             for line in fin:
                 fout.write(line.replace('1.00000000000000e+99', 'NaN'))
     # Save imputed data to file and keep in dataframe for computation
-    datasettest4 = pandas.read_csv('TestData4.csv', names=None, header=None)
+    datasettest4 = pandas.read_csv('TestData4.csv', names=None, header=None, delim_whitespace=True)
     datasettest4.fillna(datasettest4.mean(), inplace=True)
     datasettest4.to_csv('TestData4.csv', index=None, header=None)
     # Re-fit with entire learning data set
-    knn4.fit(datasetlearn4, datasetlabels4)
-    predictions4 = knn4.predict(datasettest4)
+    rf4.fit(datasetlearn4, datasetlabels4)
+    predictions4 = rf4.predict(datasettest4)
     results4 = open('TestLabel4.txt', 'w')
     for eaLine in predictions4:
         results4.write("%s\n" % eaLine)
@@ -272,12 +287,12 @@ def main():
             for line in fin:
                 fout.write(line.replace('1.00000000000000e+99', 'NaN'))
     # Save imputed data to file and keep in dataframe for computation
-    datasettest5 = pandas.read_csv('TestData5.csv', names=None, header=None)
+    datasettest5 = pandas.read_csv('TestData5.csv', names=None, header=None, delim_whitespace=True)
     datasettest5.fillna(datasettest5.mean(), inplace=True)
     datasettest5.to_csv('TestData5.csv', index=None, header=None)
     # Re-fit with entire learning data set
-    knn5.fit(datasetlearn5, datasetlabels5)
-    predictions5 = knn5.predict(datasettest5)
+    rf5.fit(datasetlearn5, datasetlabels5)
+    predictions5 = rf5.predict(datasettest5)
     results5 = open('TestLabel5.txt', 'w')
     for eaLine in predictions5:
         results5.write("%s\n" % eaLine)
